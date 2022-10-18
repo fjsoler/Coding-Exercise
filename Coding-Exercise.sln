@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballScoreBoard", "FootballScoreBoard\FootballScoreBoard.csproj", "{53EBC684-47ED-437E-B3A1-741D4F3B455D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{19BD587B-2980-4F9B-8D02-37293572AF4B}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballScoreBoard.Test", "FootballScoreBoard.Test\FootballScoreBoard.Test.csproj", "{5A8F0CCF-6D46-4181-97BB-9ED70A8045A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53EBC684-47ED-437E-B3A1-741D4F3B455D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53EBC684-47ED-437E-B3A1-741D4F3B455D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53EBC684-47ED-437E-B3A1-741D4F3B455D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53EBC684-47ED-437E-B3A1-741D4F3B455D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A8F0CCF-6D46-4181-97BB-9ED70A8045A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A8F0CCF-6D46-4181-97BB-9ED70A8045A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A8F0CCF-6D46-4181-97BB-9ED70A8045A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A8F0CCF-6D46-4181-97BB-9ED70A8045A4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2456085-340F-4A97-8073-22DB5D8FD3C4}
+	EndGlobalSection
+EndGlobal
