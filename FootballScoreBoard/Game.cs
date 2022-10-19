@@ -11,7 +11,8 @@
             HomeTeam = new Team(homeTeam);
             AwayTeam = new Team(awayTeam);
 
-            if (HomeTeam.Name == AwayTeam.Name) throw new ArgumentException("The teams are the same and should be different");
+            if (HomeTeam.Equals(AwayTeam)) 
+                throw new ArgumentException("The teams are the same and should be different");
         }
     }
 }

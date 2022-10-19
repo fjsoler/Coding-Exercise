@@ -18,5 +18,18 @@ namespace FootballScoreBoard
             Name = name;
             Score = 0;
         }
+
+        public override bool Equals(object? obj)
+        {
+            var objTeam = obj as Team;
+
+            if (objTeam == null)
+                return false;
+
+            if (objTeam.Name == this.Name) 
+                return true;
+            
+            return false;
+        }
     }
 }
