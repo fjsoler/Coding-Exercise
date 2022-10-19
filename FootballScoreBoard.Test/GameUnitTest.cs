@@ -7,6 +7,10 @@ namespace FootballScoreBoard.Test
         string Spain2 = "Spain";
         string Portugal = "Portugal";
 
+        Game GameSpainPortugal = new Game("Spain", "Portugal");
+        Game GameSpainPortugal2 = new Game("Spain", "Portugal");
+        Game GameRomaniaFrance = new Game("Romania", "France");
+
         [TestMethod]
         public void NewGameShouldNotThrowExceptions()
         {
@@ -46,6 +50,24 @@ namespace FootballScoreBoard.Test
         {
             Game game = new Game(Spain, Portugal);
             Assert.AreEqual("0 - 0", game.Score);
+        }
+
+        [TestMethod]
+        public void TwoSameGamesShouldEquals()
+        {
+            Assert.AreEqual(GameSpainPortugal, GameSpainPortugal2);
+        }
+
+        [TestMethod]
+        public void TwoDifferentGamesShouldBeDifferent()
+        {
+            Assert.AreNotEqual(GameSpainPortugal, GameRomaniaFrance);
+        }
+
+        [TestMethod]
+        public void NullGameCannotBeEqualToAnother()
+        {
+            Assert.IsFalse(GameSpainPortugal.Equals(null));
         }
     }
 }
