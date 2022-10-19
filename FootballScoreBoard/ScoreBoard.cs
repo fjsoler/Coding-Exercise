@@ -19,13 +19,13 @@ namespace FootballScoreBoard
 
         public string StartGame(string localTeam, string awayTeam)
         {
-            Game game = new Game(localTeam, awayTeam);
-
             if (ScoreBoardList.Exists( x => x.HomeTeam.Name.Equals(localTeam) || x.AwayTeam.Name.Equals(localTeam)))
                 throw new Exception("Local Team already exist in scoreboard");
 
             if (ScoreBoardList.Exists(x => x.HomeTeam.Name.Equals(awayTeam) || x.AwayTeam.Name.Equals(awayTeam)))
                 throw new Exception("Away Team already exist in scoreboard");
+
+            Game game = new Game(localTeam, awayTeam);
 
             if (ScoreBoardList.Exists(x => x.Equals(game)))
                 throw new Exception("Game already exist in scoreboard");
@@ -34,6 +34,5 @@ namespace FootballScoreBoard
             
             return game.Score;
         }
-
     }
 }
