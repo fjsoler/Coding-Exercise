@@ -14,6 +14,8 @@ namespace FootballScoreBoard
 
         public StartGame(ScoreBoardStorage scoreBoardStorage)
         {
+            if (scoreBoardStorage == null) throw new ArgumentNullException("Parameter scoreBoardStorage is null");
+
             ScoreBoardStorage = scoreBoardStorage;
         }
 

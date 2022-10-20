@@ -9,12 +9,13 @@ namespace FootballScoreBoard.Test
     [TestClass]
     public class ScoreBoardStorageUnitTest
     {
+        Game gameSpainPortugal = new("Spain", "Portugal");
+
         [TestMethod]
         public void TeamShouldExist()
         {
             ScoreBoardStorage storage = new();
-            StartGame startGame = new StartGame(storage);
-            startGame.Do("Spain", "Portugal");
+            storage.Add(gameSpainPortugal);
 
             Assert.IsTrue(storage.ExistsTeam("Spain"));
             Assert.IsTrue(storage.ExistsTeam("Portugal"));
@@ -24,8 +25,7 @@ namespace FootballScoreBoard.Test
         public void TeamShouldNotExists()
         {
             ScoreBoardStorage storage = new();
-            StartGame startGame = new StartGame(storage);
-            startGame.Do("Spain", "Portugal");
+            storage.Add(gameSpainPortugal);
 
             Assert.IsFalse(storage.ExistsTeam("Romania"));
         }
@@ -34,19 +34,36 @@ namespace FootballScoreBoard.Test
         public void GameShouldExist()
         {
             ScoreBoardStorage storage = new();
-            StartGame startGame = new StartGame(storage);
-            startGame.Do("Spain", "Portugal");
+            storage.Add(gameSpainPortugal);
 
-            Assert.IsTrue(storage.ExistsGame(new Game("Spain","Portugal")));
+            Assert.IsTrue(storage.ExistsGame(gameSpainPortugal));
         }
+
         [TestMethod]
         public void GameShouldNotExist()
         {
             ScoreBoardStorage storage = new();
-            StartGame startGame = new StartGame(storage);
-            startGame.Do("Spain", "Portugal");
-
             Assert.IsFalse(storage.ExistsGame(new Game("Romania", "France")));
         }
+
+        [TestMethod]
+        public void AddGameShouldStorageCountEq1()
+        {
+            ScoreBoardStorage storage = new();
+            storage.Add(gameSpainPortugal);
+
+            Assert.AreEqual(1, storage.Count);
+        }
+
+        [TestMethod]
+        public void RemoveGameShouldReturnTrueAndStorageCountEqZero()
+        {
+            ScoreBoardStorage storage = new();
+            storage.Add(gameSpainPortugal);
+            
+            Assert.IsTrue(storage.Remove(gameSpainPortugal));
+            Assert.AreEqual(0, storage.Count);
+        }
+
     }
 }

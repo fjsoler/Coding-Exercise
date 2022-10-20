@@ -15,11 +15,6 @@ namespace FootballScoreBoard
             List = new List<Game>();
         }
 
-        public bool Exists(Predicate<Game> mach)
-        {
-            return List.Exists(mach);
-        }
-
         public bool ExistsTeam(string team)
         {
             if (team == null) throw new ArgumentNullException("Parameter team is null");
@@ -38,6 +33,11 @@ namespace FootballScoreBoard
         public void Add(Game game)
         {
             List.Add(game);
+        }
+
+        public bool Remove(Game game)
+        {
+            return List.Remove(game);
         }
     }
 }

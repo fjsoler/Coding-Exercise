@@ -7,6 +7,13 @@ namespace FootballScoreBoard.Test
         string AwayTeam = "Portugal";
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void NullParameterInConstructorShouldThrowException()
+        {
+            StartGame startGame = new(null);
+        }
+
+        [TestMethod]
         public void StarGameShouldReturnCorrectScore()
         {
             ScoreBoardStorage storage = new ScoreBoardStorage();
