@@ -26,7 +26,7 @@ namespace FootballScoreBoard
         public bool ExistsGame(Game game)
         {
             if (game == null) throw new ArgumentNullException("Parameter team is null");
-            
+
             return List.Exists(x => x.Equals(game));
         }
 

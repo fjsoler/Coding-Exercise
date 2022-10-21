@@ -13,50 +13,43 @@ namespace FootballScoreBoard.Test
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullParameterInConstructorShouldThrowException()
-        { 
-            FinishGame finishGame = new FinishGame(null);
+        {
+            new FinishGame(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ParametersNullShouldThrowArgumentNullException()
         {
-            ScoreBoardStorage storage = new();
-            FinishGame finishGame = new FinishGame(storage);
-            finishGame.Do(null, null);
+            new FinishGame(new ScoreBoardStorage()).Do(null, null);
         }
         
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ParameterOneEqNullShouldThrowArgumentNullException()
         {
-            ScoreBoardStorage storage = new();
-            FinishGame finishGame = new FinishGame(storage);
-            finishGame.Do(null, "Spain");
+            new FinishGame(new ScoreBoardStorage()).Do(null, "Spain");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ParameterTwoEqNullShouldThrowArgumentNullException()
         {
-            ScoreBoardStorage storage = new();
-            FinishGame finishGame = new FinishGame(storage);
-            finishGame.Do("Spain", null);
+            new FinishGame(new ScoreBoardStorage()).Do("Spain", null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void IfGameNotExistsShoulThowException()
         {
-            ScoreBoardStorage storage = new();
-            FinishGame finishGame = new FinishGame(storage);
-            finishGame.Do("Spain", "Portuga");
+            new FinishGame(new ScoreBoardStorage()).Do("Spain", "Portuga");
         }
 
         [TestMethod]
         public void FinishedGameShouldNotExistsInStorage()
         {
             string homeTeam = "Spain", awayTeam = "Portugal";
+            
             ScoreBoardStorage storage = new();
 
             StartGame startGame = new(storage);

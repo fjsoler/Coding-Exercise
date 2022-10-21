@@ -19,18 +19,15 @@ namespace FootballScoreBoard
             ScoreBoardStorage = scoreBoardStorage;
         }
 
-        public string Do(string localTeam, string awayTeam)
+        public string Do(string homeTeam, string awayTeam)
         {
-            if (ScoreBoardStorage.ExistsTeam(localTeam))
+            Game game = new(homeTeam, awayTeam);
+
+            if (ScoreBoardStorage.ExistsTeam(homeTeam))
                 throw new Exception("Local Team already exist in scoreboard");
 
             if (ScoreBoardStorage.ExistsTeam(awayTeam))
                 throw new Exception("Away Team already exist in scoreboard");
-
-            Game game = new(localTeam, awayTeam);
-
-            if (ScoreBoardStorage.ExistsGame(game))
-                throw new Exception("Game already exist in scoreboard");
 
             ScoreBoardStorage.Add(game);
             

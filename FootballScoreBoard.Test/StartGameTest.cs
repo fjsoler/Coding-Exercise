@@ -3,22 +3,21 @@ namespace FootballScoreBoard.Test
     [TestClass]
     public class StartGameTest
     {
-        string LocalTeam = "Spain";
-        string AwayTeam = "Portugal";
+        string homeTeam = "Spain";
+        string awayTeam = "Portugal";
+        string romania = "Romania";
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullParameterInConstructorShouldThrowException()
         {
-            StartGame startGame = new(null);
+            new StartGame(null);
         }
 
         [TestMethod]
         public void StarGameShouldReturnCorrectScore()
         {
-            ScoreBoardStorage storage = new ScoreBoardStorage();
-            StartGame startGame = new StartGame(storage);
-            Assert.AreEqual("0 - 0", startGame.Do(LocalTeam, AwayTeam));
+            Assert.AreEqual("0 - 0", new StartGame(new ScoreBoardStorage()).Do(homeTeam, awayTeam));
         }
 
         [TestMethod]
@@ -26,7 +25,7 @@ namespace FootballScoreBoard.Test
         {
             ScoreBoardStorage storage = new ScoreBoardStorage();
             StartGame startGame = new StartGame(storage);
-            startGame.Do(LocalTeam, AwayTeam);
+            startGame.Do(homeTeam, awayTeam);
 
             Assert.AreEqual(1, storage.Count);
         }
@@ -35,38 +34,48 @@ namespace FootballScoreBoard.Test
         [ExpectedException(typeof(Exception))]
         public void StarSameGameTwiceShouldThrowException()
         {
-            ScoreBoardStorage storage = new ScoreBoardStorage();
-            StartGame startGame = new StartGame(storage);
-            startGame.Do(LocalTeam, AwayTeam);
-            startGame.Do(LocalTeam, AwayTeam);
+            StartGame startGame = new StartGame(new ScoreBoardStorage());
+            startGame.Do(homeTeam, awayTeam);
+            startGame.Do(homeTeam, awayTeam);
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
-        public void IfTeamAlreadyExistInListShouldThrowException()
+        public void IfHomeTeamAlreadyExistInListShouldThrowException()
         {
-            ScoreBoardStorage storage = new ScoreBoardStorage();
-            StartGame startGame = new StartGame(storage);
-            startGame.Do(LocalTeam, AwayTeam);
-            startGame.Do(AwayTeam, LocalTeam);
+            StartGame startGame = new StartGame(new ScoreBoardStorage());
+            startGame.Do(homeTeam, awayTeam);
+            startGame.Do(homeTeam, romania);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void IfAwayTeamAlreadyExistInListShouldThrowException()
+        {
+            StartGame startGame = new StartGame(new ScoreBoardStorage());
+            startGame.Do(homeTeam, awayTeam);
+            startGame.Do(romania, awayTeam);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void NullValuesShouldThrowException()
+        public void ParameterOneNullShouldThrowException()
         {
-            ScoreBoardStorage storage = new ScoreBoardStorage();
-            StartGame startGame = new StartGame(storage);
-            startGame.Do(null, null);
+            new StartGame(new ScoreBoardStorage()).Do(null, awayTeam);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ParameterTwoNullShouldThrowException()
+        {
+            new StartGame(new ScoreBoardStorage()).Do(homeTeam, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void EmptyValuesShouldThrowException()
         {
-            ScoreBoardStorage storage = new ScoreBoardStorage();
-            StartGame startGame = new StartGame(storage);
-            startGame.Do("", "");
+            new StartGame(new ScoreBoardStorage()).Do("", "");
         }
     }
 }
