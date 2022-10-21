@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Xml.Linq;
-
-namespace FootballScoreBoard
+﻿namespace FootballScoreBoard
 {
     public class ScoreBoardStorage
     {
-        List<Game> List { get; set; }
+        readonly List<Game> List;
 
         public int Count { get { return List.Count; } }
 
@@ -17,15 +13,16 @@ namespace FootballScoreBoard
 
         public bool ExistsTeam(string team)
         {
-            if (team == null) throw new ArgumentNullException("Parameter team is null");
+            ArgumentNullException.ThrowIfNull(team);
+            
             if (team.Length == 0) throw new ArgumentException("Parameter team is empty");
-
+            
             return List.Exists(x => x.HomeTeam.Name.Equals(team) || x.AwayTeam.Name.Equals(team));
         }
 
         public bool ExistsGame(Game game)
         {
-            if (game == null) throw new ArgumentNullException("Parameter team is null");
+            ArgumentNullException.ThrowIfNull(game);
 
             return List.Exists(x => x.Equals(game));
         }
@@ -38,6 +35,11 @@ namespace FootballScoreBoard
         public bool Remove(Game game)
         {
             return List.Remove(game);
+        }
+
+        public Game? Find(Game game)
+        {
+            return List.Find(x => x.Equals(game));
         }
     }
 }

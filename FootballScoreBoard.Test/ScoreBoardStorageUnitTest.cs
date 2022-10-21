@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FootballScoreBoard.Test
+﻿namespace FootballScoreBoard.Test
 {
     [TestClass]
     public class ScoreBoardStorageUnitTest
     {
-        Game gameSpainPortugal = new("Spain", "Portugal");
-
+        readonly Game gameSpainPortugal = new("Spain", "Portugal");
+        
         [TestMethod]
         public void TeamShouldExist()
         {
@@ -65,5 +59,26 @@ namespace FootballScoreBoard.Test
             Assert.AreEqual(0, storage.Count);
         }
 
+        [TestMethod]
+        public void FindExistsGameShouldReturnGame()
+        {
+            ScoreBoardStorage storage = new();
+            storage.Add(gameSpainPortugal);
+
+            Game? findGame = storage.Find(gameSpainPortugal);
+
+            Assert.IsTrue(findGame != null);
+            Assert.AreEqual(gameSpainPortugal, findGame);
+        }
+
+        [TestMethod]
+        public void FindNotExistsGameShouldReturnNull()
+        {
+            ScoreBoardStorage storage = new();
+
+            Game? findGame = storage.Find(gameSpainPortugal);
+
+            Assert.IsTrue(findGame == null);
+        }
     }
 }

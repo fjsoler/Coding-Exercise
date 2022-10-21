@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FootballScoreBoard
+﻿namespace FootballScoreBoard
 {
     public class FinishGame
     {
-        ScoreBoardStorage ScoreBoardStorage { get; set; }
+        readonly ScoreBoardStorage ScoreBoardStorage;
 
         public FinishGame(ScoreBoardStorage scoreBoardStorage)
         {
-            if (scoreBoardStorage == null) throw new ArgumentNullException("scoreBoardStorage");
+            ArgumentNullException.ThrowIfNull(scoreBoardStorage); 
             
             ScoreBoardStorage = scoreBoardStorage;
         }

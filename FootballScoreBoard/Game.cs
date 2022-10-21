@@ -15,6 +15,12 @@
                 throw new ArgumentException("The teams are the same and should be different");
         }
 
+        public void UpdateScore(int homeTeamScore, int awayTeamScore)
+        {
+            HomeTeam.Score = homeTeamScore;
+            AwayTeam.Score = awayTeamScore;
+        }
+
         public override bool Equals(object? obj)
         {
             var objGame = obj as Game;
@@ -26,6 +32,17 @@
                 return true;
             
             return false;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked // Overflow is fine, just wrap
+            {
+                int hash = 17;
+                hash = hash * 23 + HomeTeam.GetHashCode();
+                hash = hash * 23 + AwayTeam.GetHashCode();
+                return hash;
+            }
         }
     }
 }

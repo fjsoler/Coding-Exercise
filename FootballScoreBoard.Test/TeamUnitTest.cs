@@ -24,5 +24,17 @@ namespace FootballScoreBoard.Test
         {
             Assert.IsFalse(Spain.Equals(null));
         }
+
+        [TestMethod]
+        public void TwoSameTeamsShouldHaveHashCodesEquals()
+        { 
+            Assert.AreEqual(Spain.GetHashCode(), Spain2.GetHashCode());
+        }
+
+        [TestMethod]
+        public void TwoDifferentTeamsShouldHaveHashCodesDifferents()
+        {
+            Assert.AreNotEqual(Spain.GetHashCode(), UK.GetHashCode());
+        }
     }
 }

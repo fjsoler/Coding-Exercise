@@ -11,7 +11,7 @@ namespace FootballScoreBoard.Test
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullParameterInConstructorShouldThrowException()
         {
-            new StartGame(null);
+            new StartGame(null!);
         }
 
         [TestMethod]
@@ -61,14 +61,14 @@ namespace FootballScoreBoard.Test
         [ExpectedException(typeof(ArgumentNullException))]
         public void ParameterOneNullShouldThrowException()
         {
-            new StartGame(new ScoreBoardStorage()).Do(null, awayTeam);
+            new StartGame(new ScoreBoardStorage()).Do(null!, awayTeam);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ParameterTwoNullShouldThrowException()
         {
-            new StartGame(new ScoreBoardStorage()).Do(homeTeam, null);
+            new StartGame(new ScoreBoardStorage()).Do(homeTeam, null!);
         }
 
         [TestMethod]

@@ -3,25 +3,25 @@ namespace FootballScoreBoard.Test
     [TestClass]
     public class GameUnitTest
     {
-        string Spain = "Spain";
-        string Spain2 = "Spain";
-        string Portugal = "Portugal";
+        readonly string Spain = "Spain";
+        readonly string Spain2 = "Spain";
+        readonly string Portugal = "Portugal";
 
-        Game GameSpainPortugal = new Game("Spain", "Portugal");
-        Game GameSpainPortugal2 = new Game("Spain", "Portugal");
-        Game GameRomaniaFrance = new Game("Romania", "France");
+        readonly Game GameSpainPortugal = new("Spain", "Portugal");
+        readonly Game GameSpainPortugal2 = new("Spain", "Portugal");
+        readonly Game GameRomaniaFrance = new("Romania", "France");
 
         [TestMethod]
         public void NewGameShouldNotThrowExceptions()
         {
-            new Game(Spain, Portugal);
+            _ = new Game(Spain, Portugal);
         }
         
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TwoNullsTeamsShouldThrowArgumentNullException()
         {
-            new Game(null,null);
+            new Game(null!, null!);
         }
 
         [TestMethod]
@@ -60,6 +60,26 @@ namespace FootballScoreBoard.Test
         public void NullGameCannotBeEqualToAnother()
         {
             Assert.IsFalse(GameSpainPortugal.Equals(null));
+        }
+
+        [TestMethod]
+        public void TwoSameGamesShouldHaveHashCodesEquals()
+        {
+            Assert.AreEqual(GameSpainPortugal.GetHashCode(), GameSpainPortugal2.GetHashCode());
+        }
+
+        [TestMethod]
+        public void TwoDifferentGamesShouldHaveHashCodesDifferents()
+        {
+            Assert.AreNotEqual(GameSpainPortugal.GetHashCode(), GameRomaniaFrance.GetHashCode());
+        }
+
+        [TestMethod]
+        public void UpdateScoreShouldSaveCorretly()
+        {
+            Game game = new ("Spain", "Portugal");
+            game.UpdateScore(1, 0);
+            Assert.AreEqual("1 - 0", game.Score);
         }
     }
 }

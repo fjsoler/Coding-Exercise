@@ -1,11 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FootballScoreBoard.Test
+﻿namespace FootballScoreBoard.Test
 {
     [TestClass]
     public class FinishGameUnitTest
@@ -14,28 +7,28 @@ namespace FootballScoreBoard.Test
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullParameterInConstructorShouldThrowException()
         {
-            new FinishGame(null);
+            new FinishGame(null!);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ParametersNullShouldThrowArgumentNullException()
         {
-            new FinishGame(new ScoreBoardStorage()).Do(null, null);
+            new FinishGame(new ScoreBoardStorage()).Do(null!, null!);
         }
         
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ParameterOneEqNullShouldThrowArgumentNullException()
         {
-            new FinishGame(new ScoreBoardStorage()).Do(null, "Spain");
+            new FinishGame(new ScoreBoardStorage()).Do(null!, "Spain");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ParameterTwoEqNullShouldThrowArgumentNullException()
         {
-            new FinishGame(new ScoreBoardStorage()).Do("Spain", null);
+            new FinishGame(new ScoreBoardStorage()).Do("Spain", null!);
         }
 
         [TestMethod]

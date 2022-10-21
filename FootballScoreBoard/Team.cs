@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FootballScoreBoard
+﻿namespace FootballScoreBoard
 {
     public class Team
     {
@@ -30,6 +24,16 @@ namespace FootballScoreBoard
                 return true;
             
             return false;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked // Overflow is fine, just wrap
+            {
+                int hash = 17;
+                hash = hash * 23 + Name.GetHashCode();
+                return hash;
+            }
         }
     }
 }
