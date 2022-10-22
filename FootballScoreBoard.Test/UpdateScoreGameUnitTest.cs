@@ -1,7 +1,7 @@
 ﻿namespace FootballScoreBoard.Test
 {
     [TestClass]
-    public class UpdateScoreGameTest
+    public class UpdateScoreGameUnitTest
     {
         readonly string Spain = "Spain";
         readonly string Portugal = "Portugal";

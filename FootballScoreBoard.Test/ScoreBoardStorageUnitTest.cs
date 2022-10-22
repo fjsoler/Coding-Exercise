@@ -80,5 +80,21 @@
 
             Assert.IsTrue(findGame == null);
         }
+
+        [TestMethod]
+        public void GetListShouldReturnIEnumerableNotNull()
+        {
+            ScoreBoardStorage storage = new();
+            IEnumerable<Game> list = storage.GetEnumerator();
+            Assert.IsNotNull(list);
+        }
+
+        [TestMethod]
+        public void GetEnumeratorCountShouldReturnOne()
+        {
+            ScoreBoardStorage storage = new();
+            storage.Add(gameSpainPortugal);
+            Assert.AreEqual(1, storage.GetEnumerator().Count());
+        }
     }
 }

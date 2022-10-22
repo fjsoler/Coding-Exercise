@@ -14,9 +14,9 @@
         public bool ExistsTeam(string team)
         {
             ArgumentNullException.ThrowIfNull(team);
-            
+
             if (team.Length == 0) throw new ArgumentException("Parameter team is empty");
-            
+
             return List.Exists(x => x.HomeTeam.Name.Equals(team) || x.AwayTeam.Name.Equals(team));
         }
 
@@ -40,6 +40,11 @@
         public Game? Find(Game game)
         {
             return List.Find(x => x.Equals(game));
+        }
+
+        public IEnumerable<Game> GetEnumerator()
+        {
+            return List;
         }
     }
 }

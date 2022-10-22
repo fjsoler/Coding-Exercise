@@ -1,7 +1,7 @@
 namespace FootballScoreBoard.Test
 {
     [TestClass]
-    public class StartGameTest
+    public class StartGameUnitTest
     {
         string homeTeam = "Spain";
         string awayTeam = "Portugal";
@@ -21,13 +21,14 @@ namespace FootballScoreBoard.Test
         }
 
         [TestMethod]
-        public void StartGameAddOneItemToScoreBoardList()
+        public void StartGameAddOneItemToScoreBoardListAndLastUpdateIsNotNull()
         {
             ScoreBoardStorage storage = new ScoreBoardStorage();
             StartGame startGame = new StartGame(storage);
             startGame.Do(homeTeam, awayTeam);
 
             Assert.AreEqual(1, storage.Count);
+            Assert.IsNotNull(storage.GetEnumerator().First().LastUpdate);
         }
 
         [TestMethod]

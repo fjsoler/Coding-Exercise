@@ -81,5 +81,23 @@ namespace FootballScoreBoard.Test
             game.UpdateScore(1, 0);
             Assert.AreEqual("1 - 0", game.Score);
         }
+
+        [TestMethod]
+        public void NewGameShouldLastUpdateNotNull()
+        {
+            Game game = new(Spain, Portugal);
+            Assert.IsNotNull(game.LastUpdate);
+        }
+
+        [TestMethod]
+        public void UpdateScoreShouldChangeLastUpdate()
+        {
+            Game game = new("Spain", "Portugal");
+            DateTime? oldLastUpdate = game.LastUpdate;
+            game.UpdateScore(1, 0);
+            Assert.IsNotNull(oldLastUpdate);
+            Assert.IsNotNull(game.LastUpdate);
+            Assert.AreNotEqual(oldLastUpdate, game.LastUpdate);
+        }
     }
 }

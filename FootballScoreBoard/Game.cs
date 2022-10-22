@@ -4,6 +4,7 @@
     {
         public Team HomeTeam { get; private set; }
         public Team AwayTeam { get; private set; }
+        public DateTime? LastUpdate { get; private set; }
         public string Score { get { return $"{HomeTeam.Score} - {AwayTeam.Score}"; } }
         
         public Game(string homeTeam, string awayTeam)
@@ -13,12 +14,15 @@
 
             if (HomeTeam.Equals(AwayTeam)) 
                 throw new ArgumentException("The teams are the same and should be different");
+            
+            LastUpdate = DateTime.Now;
         }
 
         public void UpdateScore(int homeTeamScore, int awayTeamScore)
         {
             HomeTeam.Score = homeTeamScore;
             AwayTeam.Score = awayTeamScore;
+            LastUpdate = DateTime.Now;
         }
 
         public override bool Equals(object? obj)
