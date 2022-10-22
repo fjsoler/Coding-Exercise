@@ -15,10 +15,10 @@
         {
             Game game = new(homeTeam, awayTeam);
 
-            if (ScoreBoardStorage.ExistsTeam(homeTeam))
+            if (ScoreBoardStorage.ExistsTeam(game.HomeTeam))
                 throw new Exception("Local Team already exist in scoreboard");
 
-            if (ScoreBoardStorage.ExistsTeam(awayTeam))
+            if (ScoreBoardStorage.ExistsTeam(game.AwayTeam))
                 throw new Exception("Away Team already exist in scoreboard");
 
             ScoreBoardStorage.Add(game);

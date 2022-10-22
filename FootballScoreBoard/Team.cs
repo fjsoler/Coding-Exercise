@@ -28,7 +28,7 @@
 
         public override int GetHashCode()
         {
-            unchecked // Overflow is fine, just wrap
+            unchecked // Overflow is fine, just wrap https://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-overriding-gethashcode
             {
                 int hash = 17;
                 hash = hash * 23 + Name.GetHashCode();

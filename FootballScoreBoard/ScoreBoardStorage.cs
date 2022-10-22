@@ -11,13 +11,11 @@
             List = new List<Game>();
         }
 
-        public bool ExistsTeam(string team)
+        public bool ExistsTeam(Team team)
         {
             ArgumentNullException.ThrowIfNull(team);
 
-            if (team.Length == 0) throw new ArgumentException("Parameter team is empty");
-
-            return List.Exists(x => x.HomeTeam.Name.Equals(team) || x.AwayTeam.Name.Equals(team));
+            return List.Exists(x => x.HomeTeam.Name.Equals(team.Name) || x.AwayTeam.Name.Equals(team.Name));
         }
 
         public bool ExistsGame(Game game)

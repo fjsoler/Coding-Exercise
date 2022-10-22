@@ -3,34 +3,35 @@
     [TestClass]
     public class ScoreBoardStorageUnitTest
     {
-        readonly Game gameSpainPortugal = new("Spain", "Portugal");
-        
+        readonly Game GameSpainPortugal = new("Spain", "Portugal");
+        readonly Team Romania = new("Romania");
+
         [TestMethod]
         public void TeamShouldExist()
         {
             ScoreBoardStorage storage = new();
-            storage.Add(gameSpainPortugal);
+            storage.Add(GameSpainPortugal);
 
-            Assert.IsTrue(storage.ExistsTeam("Spain"));
-            Assert.IsTrue(storage.ExistsTeam("Portugal"));
+            Assert.IsTrue(storage.ExistsTeam(GameSpainPortugal.HomeTeam));
+            Assert.IsTrue(storage.ExistsTeam(GameSpainPortugal.AwayTeam));
         }
 
         [TestMethod]
         public void TeamShouldNotExists()
         {
             ScoreBoardStorage storage = new();
-            storage.Add(gameSpainPortugal);
+            storage.Add(GameSpainPortugal);
 
-            Assert.IsFalse(storage.ExistsTeam("Romania"));
+            Assert.IsFalse(storage.ExistsTeam(Romania));
         }
 
         [TestMethod]
         public void GameShouldExist()
         {
             ScoreBoardStorage storage = new();
-            storage.Add(gameSpainPortugal);
+            storage.Add(GameSpainPortugal);
 
-            Assert.IsTrue(storage.ExistsGame(gameSpainPortugal));
+            Assert.IsTrue(storage.ExistsGame(GameSpainPortugal));
         }
 
         [TestMethod]
@@ -44,7 +45,7 @@
         public void AddGameShouldStorageCountEq1()
         {
             ScoreBoardStorage storage = new();
-            storage.Add(gameSpainPortugal);
+            storage.Add(GameSpainPortugal);
 
             Assert.AreEqual(1, storage.Count);
         }
@@ -53,9 +54,9 @@
         public void RemoveGameShouldReturnTrueAndStorageCountEqZero()
         {
             ScoreBoardStorage storage = new();
-            storage.Add(gameSpainPortugal);
+            storage.Add(GameSpainPortugal);
             
-            Assert.IsTrue(storage.Remove(gameSpainPortugal));
+            Assert.IsTrue(storage.Remove(GameSpainPortugal));
             Assert.AreEqual(0, storage.Count);
         }
 
@@ -63,12 +64,12 @@
         public void FindExistsGameShouldReturnGame()
         {
             ScoreBoardStorage storage = new();
-            storage.Add(gameSpainPortugal);
+            storage.Add(GameSpainPortugal);
 
-            Game? findGame = storage.Find(gameSpainPortugal);
+            Game? findGame = storage.Find(GameSpainPortugal);
 
             Assert.IsTrue(findGame != null);
-            Assert.AreEqual(gameSpainPortugal, findGame);
+            Assert.AreEqual(GameSpainPortugal, findGame);
         }
 
         [TestMethod]
@@ -76,7 +77,7 @@
         {
             ScoreBoardStorage storage = new();
 
-            Game? findGame = storage.Find(gameSpainPortugal);
+            Game? findGame = storage.Find(GameSpainPortugal);
 
             Assert.IsTrue(findGame == null);
         }
@@ -93,7 +94,7 @@
         public void GetEnumeratorCountShouldReturnOne()
         {
             ScoreBoardStorage storage = new();
-            storage.Add(gameSpainPortugal);
+            storage.Add(GameSpainPortugal);
             Assert.AreEqual(1, storage.GetEnumerator().Count());
         }
     }
