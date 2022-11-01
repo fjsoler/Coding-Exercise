@@ -3,8 +3,8 @@
     [TestClass]
     public class UpdateScoreGameUnitTest
     {
-        readonly string Spain = "Spain";
-        readonly string Portugal = "Portugal";
+        readonly Team Spain = new("Spain");
+        readonly Team Portugal = new("Portugal");
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -16,49 +16,45 @@
         [TestMethod]
         public void NewUpdateScoreGameShouldNotThrowExceptions()
         {
-            _ = new UpdateScoreGame(new ScoreBoardStorage());
+            _ = new UpdateScoreGame(new WorldCupScoreBoardStorage());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void UpdateScoreHomeTeamNullSouldTrowArgumentNullException()
+        public void UpdateScoreWithMatchNullSouldTrowArgumentNullException()
         {
-            UpdateScoreGame updateScoreGame = new(new ScoreBoardStorage());
-            updateScoreGame.Do(null!, Portugal, 1, 0);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void UpdateScoreAwayTeamNullSouldTrowArgumentNullException()
-        {
-            UpdateScoreGame updateScoreGame = new(new ScoreBoardStorage());
-            updateScoreGame.Do(Spain, null!, 1, 0);
+            UpdateScoreGame updateScoreGame = new(new WorldCupScoreBoardStorage());
+            updateScoreGame.Do(null!, 1, 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void UpdateScoreOfNoExistsGameShouldThrowException()
         {
-            ScoreBoardStorage storage = new();
+            WorldCupScoreBoardStorage storage = new();
             UpdateScoreGame updateScoreGame = new(storage);
 
-            updateScoreGame.Do(Spain, Portugal, 1, 0);
+            Match match = new(Spain, Portugal);
+
+            updateScoreGame.Do(match, 1, 0);
         }
 
         [TestMethod]
         public void UpdateScoreShouldSaveInStorageCorrectly()
         {
-            ScoreBoardStorage storage = new();
+            WorldCupScoreBoardStorage storage = new();
             StartGame startGame = new(storage);
             UpdateScoreGame updateScoreGame = new(storage);
 
-            startGame.Do(Spain, Portugal);
-            updateScoreGame.Do(Spain, Portugal, 1, 0);
+            Match match = new(Spain, Portugal);
 
-            Game? findGame = storage.Find(new Game(Spain, Portugal));
+            startGame.Do(match);
+            updateScoreGame.Do(match, 1, 0);
 
-            Assert.IsTrue(findGame != null);
-            Assert.AreEqual("1 - 0", findGame.Score);
+            WorldCupScoreBoardItem? scoreBoardItem = storage.Find(match);
+
+            Assert.IsNotNull(scoreBoardItem);
+            Assert.AreEqual("1 - 0", scoreBoardItem.ScoreBoard.ToString());
         }
     }
 }

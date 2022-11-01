@@ -7,6 +7,12 @@ namespace FootballScoreBoard.Test
         readonly Team Spain2 = new Team("Spain");
         readonly Team UK = new Team("UK");
 
+        [TestMethod, ExpectedException(typeof(ArgumentException))]
+        public void EmptyTeamShouldThrowArgumentException()
+        { 
+            _ = new Team("");
+        }
+
         [TestMethod]
         public void TwoSameTeamsShouldEquals()
         {     

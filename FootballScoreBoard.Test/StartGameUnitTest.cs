@@ -3,9 +3,9 @@ namespace FootballScoreBoard.Test
     [TestClass]
     public class StartGameUnitTest
     {
-        string homeTeam = "Spain";
-        string awayTeam = "Portugal";
-        string romania = "Romania";
+        readonly string homeTeam = "Spain";
+        readonly string awayTeam = "Portugal";
+        readonly string romania = "Romania";
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -15,68 +15,47 @@ namespace FootballScoreBoard.Test
         }
 
         [TestMethod]
-        public void StarGameShouldReturnCorrectScore()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void NullMatchShouldThrowArgumentNullException()
         {
-            Assert.AreEqual("0 - 0", new StartGame(new ScoreBoardStorage()).Do(homeTeam, awayTeam));
+            WorldCupScoreBoardStorage storage = new();
+            StartGame startGame = new(storage);
+            startGame.Do(null!);
         }
 
         [TestMethod]
-        public void StartGameAddOneItemToScoreBoardListAndLastUpdateIsNotNull()
+        public void StarGameShouldReturnCorrectScore()
         {
-            ScoreBoardStorage storage = new ScoreBoardStorage();
-            StartGame startGame = new StartGame(storage);
-            startGame.Do(homeTeam, awayTeam);
-
-            Assert.AreEqual(1, storage.Count);
-            Assert.IsNotNull(storage.GetEnumerator().First().LastUpdate);
+            StartGame startGame = new StartGame(new WorldCupScoreBoardStorage());
+            Match match = new (new Team(homeTeam), new Team(awayTeam));
+            Assert.AreEqual("0 - 0", startGame.Do(match));
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void StarSameGameTwiceShouldThrowException()
         {
-            StartGame startGame = new StartGame(new ScoreBoardStorage());
-            startGame.Do(homeTeam, awayTeam);
-            startGame.Do(homeTeam, awayTeam);
+            StartGame startGame = new(new WorldCupScoreBoardStorage());
+            startGame.Do(new Match(new Team(homeTeam), new Team(awayTeam)));//I can do better
+            startGame.Do(new Match(new Team(homeTeam), new Team(awayTeam)));//I can do better
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void IfHomeTeamAlreadyExistInListShouldThrowException()
         {
-            StartGame startGame = new StartGame(new ScoreBoardStorage());
-            startGame.Do(homeTeam, awayTeam);
-            startGame.Do(homeTeam, romania);
+            StartGame startGame = new(new WorldCupScoreBoardStorage());
+            startGame.Do(new Match(new Team(homeTeam), new Team(awayTeam)));//I can do better
+            startGame.Do(new Match(new Team(homeTeam), new Team(romania)));//I can do better
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void IfAwayTeamAlreadyExistInListShouldThrowException()
         {
-            StartGame startGame = new StartGame(new ScoreBoardStorage());
-            startGame.Do(homeTeam, awayTeam);
-            startGame.Do(romania, awayTeam);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ParameterOneNullShouldThrowException()
-        {
-            new StartGame(new ScoreBoardStorage()).Do(null!, awayTeam);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ParameterTwoNullShouldThrowException()
-        {
-            new StartGame(new ScoreBoardStorage()).Do(homeTeam, null!);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void EmptyValuesShouldThrowException()
-        {
-            new StartGame(new ScoreBoardStorage()).Do("", "");
+            StartGame startGame = new(new WorldCupScoreBoardStorage());
+            startGame.Do(new Match(new Team(homeTeam), new Team(awayTeam)));//I can do better
+            startGame.Do(new Match(new Team(romania), new Team(awayTeam)));//I can do better
         }
     }
 }

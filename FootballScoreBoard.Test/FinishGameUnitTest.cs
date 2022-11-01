@@ -12,47 +12,35 @@
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void ParametersNullShouldThrowArgumentNullException()
+        public void NullMatchShouldThrowArgumentNullException()
         {
-            new FinishGame(new ScoreBoardStorage()).Do(null!, null!);
+            new FinishGame(new WorldCupScoreBoardStorage()).Do(null!);
         }
         
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ParameterOneEqNullShouldThrowArgumentNullException()
-        {
-            new FinishGame(new ScoreBoardStorage()).Do(null!, "Spain");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ParameterTwoEqNullShouldThrowArgumentNullException()
-        {
-            new FinishGame(new ScoreBoardStorage()).Do("Spain", null!);
-        }
-
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void IfGameNotExistsShoulThowException()
         {
-            new FinishGame(new ScoreBoardStorage()).Do("Spain", "Portuga");
+            Match match = new(new Team("Spain"), new Team("Portugal")); //I can do better
+            new FinishGame(new WorldCupScoreBoardStorage()).Do(match);
         }
 
         [TestMethod]
         public void FinishedGameShouldNotExistsInStorage()
         {
-            string homeTeam = "Spain", awayTeam = "Portugal";
-            
-            ScoreBoardStorage storage = new();
+            Team homeTeam = new("Spain");
+            Team awayTeam = new("Portugal");
+            Match match = new (homeTeam, awayTeam); //I can do better
+
+            WorldCupScoreBoardStorage storage = new();
 
             StartGame startGame = new(storage);
-            startGame.Do(homeTeam, awayTeam);
+            startGame.Do(match);
 
             FinishGame finishGame = new(storage);
-            finishGame.Do(homeTeam, awayTeam);
+            finishGame.Do(match);
 
-            if (storage.ExistsGame(new Game(homeTeam, awayTeam)))
-                Assert.Fail("Game exist in storage");
+            Assert.IsFalse(storage.ExistsMatch(match));
         }
     }
 }

@@ -2,22 +2,22 @@
 {
     public class SummaryGames
     {
-        ScoreBoardStorage ScoreBoardStorage;
+        readonly WorldCupScoreBoardStorage scoreBoardStorage;
 
-        public SummaryGames(ScoreBoardStorage scoreBoardStorage)
+        public SummaryGames(WorldCupScoreBoardStorage scoreBoardStorage)
         {
-            ArgumentNullException.ThrowIfNull(scoreBoardStorage);
+            ArgumentNullException.ThrowIfNull(scoreBoardStorage, nameof(scoreBoardStorage));
 
-            ScoreBoardStorage = scoreBoardStorage;  
+            this.scoreBoardStorage = scoreBoardStorage;  
         }
 
         public List<String> Do()
         {
-            return ScoreBoardStorage.GetEnumerator().
-                OrderByDescending(x => x.HomeTeam.Score + x.AwayTeam.Score).
-                ThenByDescending(x => x.LastUpdate).
+            return scoreBoardStorage.GetEnumerator().
+                OrderByDescending(x => x.ScoreBoard.HomeTeamScore + x.ScoreBoard.AwayTeamScore).
+                ThenByDescending(x => x.ScoreBoard.LastUpdate).
                 ToList().
-                Select(x => $"{x.HomeTeam.Name} {x.HomeTeam.Score} - {x.AwayTeam.Name} {x.AwayTeam.Score}").
+                Select(x => x.ToString()).
                 ToList();
         }
     }

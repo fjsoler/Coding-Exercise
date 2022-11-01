@@ -3,14 +3,15 @@
     public class Team
     {
         public string Name { get; private set; }
-        public int Score { get; set; }
+        
         public Team(string name)
         {
-            if (name == null) throw new ArgumentNullException("Parameter name is null");
-            if (name.Length == 0) throw new ArgumentException("Parameter name is empty");
+            ArgumentNullException.ThrowIfNull(name, nameof(name));
+            
+            if (name.Length == 0) 
+                throw new ArgumentException("Parameter name is empty");
 
             Name = name;
-            Score = 0;
         }
 
         public override bool Equals(object? obj)
@@ -28,12 +29,7 @@
 
         public override int GetHashCode()
         {
-            unchecked // Overflow is fine, just wrap https://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-overriding-gethashcode
-            {
-                int hash = 17;
-                hash = hash * 23 + Name.GetHashCode();
-                return hash;
-            }
+            return HashCode.Combine(Name);
         }
     }
 }

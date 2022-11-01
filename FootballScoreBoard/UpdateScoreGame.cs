@@ -2,24 +2,24 @@
 {
     public class UpdateScoreGame
     {
-        ScoreBoardStorage ScoreBoardStorage { get; set; }
+        WorldCupScoreBoardStorage ScoreBoardStorage { get; set; }
 
-        public UpdateScoreGame(ScoreBoardStorage scoreBoardStorage)
+        public UpdateScoreGame(WorldCupScoreBoardStorage scoreBoardStorage)
         {
-            ArgumentNullException.ThrowIfNull(scoreBoardStorage);
+            ArgumentNullException.ThrowIfNull(scoreBoardStorage, nameof(scoreBoardStorage));
 
             ScoreBoardStorage = scoreBoardStorage;
         }
 
-        public void Do(string homeTeam, string awayTeam, int homeTeamScore, int awayTeamScore)
+        public void Do(Match match, int homeTeamScore, int awayTeamScore)
         {
-            Game game = new(homeTeam, awayTeam);
-            
-            Game? findGame = ScoreBoardStorage.Find(game);
+            ArgumentNullException.ThrowIfNull(match, nameof(match));
 
-            if (findGame == null) throw new Exception("Game not exists");
+            WorldCupScoreBoardItem? worldCupScoreBoardItem = ScoreBoardStorage.Find(match);
 
-            findGame.UpdateScore(homeTeamScore, awayTeamScore);
+            if (worldCupScoreBoardItem == null) throw new Exception("Match not exists!");
+
+            worldCupScoreBoardItem.ScoreBoard.UpdateScore(homeTeamScore, awayTeamScore);
         }
     }
 }

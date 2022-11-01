@@ -3,34 +3,41 @@
     [TestClass]
     public class SummaryGamesUnitTest
     {
-        readonly string Spain = "Spain";
-        readonly string Portugal = "Portugal";
-        readonly string Mexico = "Mexico";
-        readonly string Canada = "Canada";
-        readonly string Brazil = "Brazil";
-        readonly string Germany = "Germany";
-        readonly string France = "France";
-        readonly string Uruguay = "Uruguay";
-        readonly string Italy = "Italy";
-        readonly string Argentina = "Argentina";
-        readonly string Australia = "Australia";
-        readonly ScoreBoardStorage ScoreBoardStorage; 
+        readonly WorldCupScoreBoardStorage ScoreBoardStorage; 
 
         public SummaryGamesUnitTest() 
         {
             ScoreBoardStorage = new();
             StartGame start = new(ScoreBoardStorage);
             UpdateScoreGame update = new(ScoreBoardStorage);
-            start.Do(Mexico, Canada);
-            start.Do(Spain, Brazil);
-            start.Do(Germany, France);
-            start.Do(Uruguay, Italy);
-            start.Do(Argentina, Australia);
-            update.Do(Spain, Brazil, 10, 2);
-            update.Do(Uruguay, Italy, 6, 6);
-            update.Do(Mexico, Canada,0,5);
-            update.Do(Germany, France,2,2);
-            update.Do(Argentina, Australia,3,1);
+
+            Team Spain = new("Spain");
+            Team Brazil = new("Brazil");
+            Team Mexico = new("Mexico");
+            Team Canada = new("Canada");
+            Team Germany = new("Germany");
+            Team France = new("France");
+            Team Uruguay = new("Uruguay");
+            Team Italy = new("Italy");
+            Team Argentina = new("Argentina");
+            Team Australia = new("Australia");
+
+            Match matchMexicoCanada = new(Mexico, Canada);
+            Match matchSpainBrazil = new(Spain, Brazil);
+            Match matchGermanyFrance = new(Germany, France);
+            Match matchUruguayItaly = new(Uruguay, Italy);
+            Match matchArgetinaAustralia = new(Argentina, Australia);
+
+            start.Do(matchMexicoCanada);
+            start.Do(matchSpainBrazil);
+            start.Do(matchGermanyFrance);
+            start.Do(matchUruguayItaly);
+            start.Do(matchArgetinaAustralia);
+            update.Do(matchSpainBrazil, 10, 2);
+            update.Do(matchUruguayItaly, 6, 6);
+            update.Do(matchMexicoCanada, 0, 5);
+            update.Do(matchGermanyFrance, 2, 2);
+            update.Do(matchArgetinaAustralia, 3, 1);
         }
 
         [TestMethod]
@@ -43,7 +50,7 @@
         [TestMethod]
         public void NewSumaryGamesWithStorageShouldNotNull()
         {
-            SummaryGames summary = new(new ScoreBoardStorage());
+            SummaryGames summary = new(new WorldCupScoreBoardStorage());
             Assert.IsNotNull(summary);
         }
 
@@ -58,12 +65,12 @@
         [TestMethod]
         public void GetSumaryShouldReturnGoodList()
         {
-            ScoreBoardStorage storage = new();
+            WorldCupScoreBoardStorage storage = new();
             StartGame startGame = new(storage);
             SummaryGames summary = new(storage);
 
-            startGame.Do(Spain, Portugal);
-            
+            startGame.Do(new Match(new Team("Spain"), new Team("Portugal")));//I can do better
+
             List<String> resultList = summary.Do();
 
             Assert.IsNotNull(resultList);

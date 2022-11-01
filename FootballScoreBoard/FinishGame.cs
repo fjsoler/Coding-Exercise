@@ -2,22 +2,23 @@
 {
     public class FinishGame
     {
-        readonly ScoreBoardStorage ScoreBoardStorage;
+        readonly WorldCupScoreBoardStorage scoreBoardStorage;
 
-        public FinishGame(ScoreBoardStorage scoreBoardStorage)
+        public FinishGame(WorldCupScoreBoardStorage scoreBoardStorage)
         {
-            ArgumentNullException.ThrowIfNull(scoreBoardStorage); 
+            ArgumentNullException.ThrowIfNull(scoreBoardStorage, nameof(scoreBoardStorage)); 
             
-            ScoreBoardStorage = scoreBoardStorage;
+            this.scoreBoardStorage = scoreBoardStorage;
         }
 
-        public void Do(string homeTeam, string awayTeam)
+        public void Do(Match match)
         {
-            Game game = new(homeTeam, awayTeam);
+            ArgumentNullException.ThrowIfNull(match, nameof(match));
 
-            if (!ScoreBoardStorage.ExistsGame(game)) throw new Exception("Game not exists");
+            if (!scoreBoardStorage.ExistsMatch(match)) 
+                throw new Exception("The match does not exist");
 
-            ScoreBoardStorage.Remove(game);
+            scoreBoardStorage.Remove(match);
         }
     }
 }
